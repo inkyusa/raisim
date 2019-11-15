@@ -31,30 +31,33 @@ Building order should be in the order.
 -----------------------------
 1. raisim-lib build
 -----------------------------
-cmake .. -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD
-make install
+$cmake .. -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD
+$make install
 
 -----------------------------
 2. ogre build
 -----------------------------
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DOGRE_BUILD_COMPONENT_BITES=ON -OGRE_BUILD_COMPONENT_JAVA=OFF -DOGRE_BUILD_DEPENDENCIES=OFF -DOGRE_BUILD_SAMPLES=False
-make install -j8
+$cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DOGRE_BUILD_COMPONENT_BITES=ON -OGRE_BUILD_COMPONENT_JAVA=OFF -DOGRE_BUILD_DEPENDENCIES=OFF -DOGRE_BUILD_SAMPLES=False
+$make install -j8
 -----------------------------
 3. raisimOgre build
 -----------------------------
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$LOCAL_BUILD -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DRAISIM_OGRE_EXAMPLES=True
+$cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$LOCAL_BUILD -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DRAISIM_OGRE_EXAMPLES=True
 
-make install -j8
+$make install -j8
 -----------------------------
 3. pybind11 build
 -----------------------------
-cmake .. -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DPYBIND11_TEST=OFF
-make install -j8
+$cmake .. -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DPYBIND11_TEST=OFF
+$make install -j8
 -----------------------------
 4. raisimGym build
 -----------------------------
-python3 setup.py install --CMAKE_PREFIX_PATH $LOCAL_BUILD --env anymal
+$python3 setup.py install --CMAKE_PREFIX_PATH $LOCAL_BUILD --env anymal
 
+-----------------------------
 Training
-python3 scripts/anymal_blind_locomotion.py -m train
+-----------------------------
+
+$python3 scripts/anymal_blind_locomotion.py -m train
 
