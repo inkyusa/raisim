@@ -45,7 +45,7 @@ echo "=========================================================="
 echo "  Raisim is using cmake>3.10, please check if you are using correct version.    " 
 echo "=========================================================="   
 
-sudo apt-get install -y libyaml-cpp-dev
+sudo apt-get install -y libyaml-cpp-dev cmake libeigen3-dev libgles2-mesa-dev libxt-dev libxaw7-dev libsdl2-dev libzzip-dev libfreeimage-dev libfreetype6-dev libpugixml-dev
 
 
 MODE=$1
