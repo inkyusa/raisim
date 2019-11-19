@@ -11,44 +11,6 @@ then
     exit 1
 fi
 
-
-echo "========================================================="
-echo "                  Checking software versions             "
-echo "========================================================="
-
-gcc_version="$($CC -dumpversion)"
-gcc_required_version="6.0.0"
-if [ "$(printf '%s\n' "$gcc_required_version" "$gcc_version" | sort -V | head -n1)" = "$gcc_required_version" ]; then 
-    echo ">>>>>>>>>>>gcc Version checking passed"
-else
-    echo "Less than 6.0.0, please use the right version"
-    echo "You can get more information regarding software installation required by raisim from https://github.com/jhwangbo/raisimHelp"
-    exit 1
-fi
-
-gpp_version="$($CXX -dumpversion)"
-gpp_required_version="6.0.0"
-if [ "$(printf '%s\n' "$gpp_required_version" "$gpp_version" | sort -V | head -n1)" = "$gpp_required_version" ]; then 
-    echo ">>>>>>>>>>g++ Version checking passed"
-else
-    echo "Less than 6.0.0, please use the right version"
-    echo "You can get more information regarding software installation required by raisim from https://github.com/jhwangbo/raisimHelp"
-    exit 1
-fi
-
-
-cmake --version
-
-echo "=========================================================="
-echo "  Raisim is using cmake>3.10, please check if you are using correct version.    "
-echo "=========================================================="
-
-sudo apt-get install -y libyaml-cpp-dev
-
-
-
-
-
 MODE=$1
 
 echo "========================================================="
@@ -149,14 +111,11 @@ then
     echo "========================================================="
     cd raisimGym
     python3 setup.py install --CMAKE_PREFIX_PATH $LOCAL_BUILD --env anymal
-    cd $WORKSPACE
 
     # Training
     python3 scripts/anymal_blind_locomotion.py -m train
     cd $WORKSPACE
 
-    # Testing
-    #python3 scripts/anymal_blind_locomotion.py -m test -w ./data/ANYmal_blind_locomotion/2019-11-19-13-32-45_Iteration_150.pkl
 
 elif [ $MODE == "clean" ]
 then
