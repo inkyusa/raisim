@@ -1,3 +1,5 @@
+### This repo assumes that you already installed a tensorflow environments (e.g., using Virtual env or Conda)
+
 ## This repo contains a gitmodule file that links the following repos as submodules:
 
 https://github.com/inkyusa/raisimGymTutorial.git
@@ -26,62 +28,15 @@ $git submodule update --init --recursive (only once after clone this repo)
 $git submodule update --recursive
 ```
 
-Now cloned all repos, and let's build them one by one. In this example we defined the following two environment variables:
+After cloning all repos, all you need to do is
 
-(TODO: Inkyu, create a shell script that executes the following commands).
+```
+$cd raisim
+$./build_script.sh build
+```
+and if you want to clean all packages,
 
-LOCAL_BUILD=~/workspace/raisim_env
-
-WORKSPACE=~/workspace
-
-
-
-Building order should be in the order.
------------------------------
-1. raisim-lib build
------------------------------
 ```
-$cmake .. -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD
+$./build_script.sh clean
 ```
-```
-$make install
-```
------------------------------
-2. ogre build
------------------------------
-```
-$cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DOGRE_BUILD_COMPONENT_BITES=ON -OGRE_BUILD_COMPONENT_JAVA=OFF -DOGRE_BUILD_DEPENDENCIES=OFF -DOGRE_BUILD_SAMPLES=False
-```
-```
-$make install -j8
-```
------------------------------
-3. raisimOgre build
------------------------------
-```
-$cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$LOCAL_BUILD -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DRAISIM_OGRE_EXAMPLES=True
-```
-```
-$make install -j8
-```
------------------------------
-3. pybind11 build
------------------------------
-```
-$cmake .. -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DPYBIND11_TEST=OFF
-```
-```
-$make install -j8
-```
------------------------------
-4. raisimGym build
------------------------------
-```
-$python3 setup.py install --CMAKE_PREFIX_PATH $LOCAL_BUILD --env anymal
-```
------------------------------
-Training
------------------------------
-```
-$python3 scripts/anymal_blind_locomotion.py -m train
-```
+this command will delete all sub-build folders and $LOCAL_BUILD directory.
