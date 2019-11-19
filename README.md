@@ -28,15 +28,15 @@ $git submodule update --init --recursive (only once after clone this repo)
 $git submodule update --recursive
 ```
 
-After cloning all repos, all you need to do is
+After cloning all repos, all you need to do is (w/o source below, you can't update environmental variables such as LD_LIBRARY_PATH)
 
 ```
 $cd raisim
-$./build_script.sh build
+$source ./build_script.sh build
 ```
 and if you want to clean all packages,
 
 ```
-$./build_script.sh clean
+$source ./build_script.sh clean
 ```
 this command will delete all sub-build folders and $LOCAL_BUILD directory.
