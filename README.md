@@ -16,15 +16,8 @@ The following procedure should allow not only cloning this repo but cloning all 
 
 ```
 $git clone https://github.com/inkyusa/raisim
-```
-
-```
 $cd raisim
-```
-```
 $git submodule update --init --recursive (only once after clone this repo)
-```
-```
 $git submodule update --recursive
 ```
 
