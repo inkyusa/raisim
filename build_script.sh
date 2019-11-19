@@ -11,7 +11,8 @@ then
     exit 1
 fi
 
-
+CC=/usr/bin/gcc
+CXX=/usr/bin/g++
 
 echo "========================================================="    
 echo "                  Checking software versions             "    
@@ -147,7 +148,7 @@ then
     echo "========================================================="
     cd raisimGym
     python3 setup.py install --CMAKE_PREFIX_PATH $LOCAL_BUILD --env anymal
-    
+
     # Training
     # python3 scripts/anymal_blind_locomotion.py -m train
     # cd $WORKSPACE
