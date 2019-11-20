@@ -27,6 +27,10 @@ After cloning all repos, all you need to do is (w/o source below, you can't upda
 $cd raisim
 $source ./build_script.sh build
 ```
+You should be able to see
+
+<img src="http://drive.google.com/uc?export=view&id=1f4qj2jbs5RuAC8OaSyupXUAFWPfWVj1B" height=300px>
+
 and if you want to clean all packages,
 
 ```
