@@ -17,9 +17,14 @@ The following procedure should allow not only cloning this repo but cloning all 
 ```
 $git clone https://github.com/inkyusa/raisim
 $cd raisim
-$git submodule update --init --recursive (only once after clone this repo)
+$git submodule update --init --recursive
+```
+You can update your submodules with
+```
 $git submodule update --recursive
 ```
+after the initialisation.
+
 
 After cloning all repos, all you need to do is (w/o source below, you can't update environmental variables such as LD_LIBRARY_PATH)
 
