@@ -1,4 +1,4 @@
-### This repo assumes that you already installed a tensorflow environments (e.g., using Virtual env or Conda)
+### This repo assumes that you already installed a tensorflow (1.xx) environments (e.g., using Virtual env or Conda)
 
 ## This repo contains a gitmodule file that links the following repos as submodules:
 
@@ -33,3 +33,7 @@ and if you want to clean all packages,
 $source ./build_script.sh clean
 ```
 this command will delete all sub-build folders and $LOCAL_BUILD directory.
+
+### git versioning tools
+
+You can use git termnal commands of course, but it is highly recommended to use GUI-based git versioning tools such as [Git Kraken](https://www.gitkraken.com/) or Git Cola especially for managing multiple submodules.
