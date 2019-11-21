@@ -1,3 +1,5 @@
+### This repo assumes that you already installed a tensorflow (1.xx) environments (e.g., using Virtual env or Conda)
+
 ## This repo contains a gitmodule file that links the following repos as submodules:
 
 https://github.com/inkyusa/raisimGymTutorial.git
@@ -14,74 +16,33 @@ The following procedure should allow not only cloning this repo but cloning all 
 
 ```
 $git clone https://github.com/inkyusa/raisim
-```
-
-```
 $cd raisim
+$git submodule update --init --recursive
 ```
-```
-$git submodule update --init --recursive (only once after clone this repo)
-```
+You can update your submodules with
 ```
 $git submodule update --recursive
 ```
-
-Now cloned all repos, and let's build them one by one. In this example we defined the following two environment variables:
-
-(TODO: Inkyu, create a shell script that executes the following commands).
-
-LOCAL_BUILD=~/workspace/raisim_env
-
-WORKSPACE=~/workspace
+after the initialisation.
 
 
+After cloning all repos, all you need to do is (w/o source below, you can't update environmental variables such as LD_LIBRARY_PATH)
 
-Building order should be in the order.
------------------------------
-1. raisim-lib build
------------------------------
 ```
-$cmake .. -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD
+$cd raisim
+$source ./build_script.sh build
 ```
+You should be able to see
+
+<img src="http://drive.google.com/uc?export=view&id=1f4qj2jbs5RuAC8OaSyupXUAFWPfWVj1B" height=300px>
+
+and if you want to clean all packages,
+
 ```
-$make install
+$source ./build_script.sh clean
 ```
------------------------------
-2. ogre build
------------------------------
-```
-$cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DOGRE_BUILD_COMPONENT_BITES=ON -OGRE_BUILD_COMPONENT_JAVA=OFF -DOGRE_BUILD_DEPENDENCIES=OFF -DOGRE_BUILD_SAMPLES=False
-```
-```
-$make install -j8
-```
------------------------------
-3. raisimOgre build
------------------------------
-```
-$cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$LOCAL_BUILD -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DRAISIM_OGRE_EXAMPLES=True
-```
-```
-$make install -j8
-```
------------------------------
-3. pybind11 build
------------------------------
-```
-$cmake .. -DCMAKE_INSTALL_PREFIX=$LOCAL_BUILD -DPYBIND11_TEST=OFF
-```
-```
-$make install -j8
-```
------------------------------
-4. raisimGym build
------------------------------
-```
-$python3 setup.py install --CMAKE_PREFIX_PATH $LOCAL_BUILD --env anymal
-```
------------------------------
-Training
------------------------------
-```
-$python3 scripts/anymal_blind_locomotion.py -m train
-```
+this command will delete all sub-build folders and $LOCAL_BUILD directory.
+
+### git versioning tools
+
+You can use git termnal commands of course, but it is highly recommended to use GUI-based git versioning tools such as [Git Kraken](https://www.gitkraken.com/) or Git Cola especially for managing multiple submodules.
