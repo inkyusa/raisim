@@ -11,8 +11,8 @@ then
     exit 1
 fi
 
-CC=/usr/bin/gcc
-CXX=/usr/bin/g++
+#CC=/usr/bin/gcc
+#CXX=/usr/bin/g++
 
 echo "========================================================="    
 echo "                  Checking software versions             "    
@@ -81,6 +81,13 @@ then
         mkdir ${LOCAL_BUILD}
     fi
 
+    #Add LD_LIBRARY_PATH into bashrc for later use.
+    #if you run this script n times, this will appear n time in your bashrc
+    echo "export LD_LIBRARY_PATH=${LOCAL_BUILD}/lib:$LD_LIBRARY_PATH" >> ~/.bashrc
+
+    # to ensure that ld finds Ogre3D shared objects.
+    export LD_LIBRARY_PATH=${LOCAL_BUILD}/lib:$LD_LIBRARY_PATH
+
     # Compilers setup
     #export CXX=/usr/bin/g++-8 && export CC=/usr/bin/gcc-8
 
@@ -112,8 +119,6 @@ then
     make install -j8
     cd $WORKSPACE
 
-    # to ensure that ld finds Ogre3D shared objects.
-    export LD_LIBRARY_PATH=${LOCAL_BUILD}/lib:$LD_LIBRARY_PATH
     # -----------------------------
     # 3. raisimOgre build
     # -----------------------------
