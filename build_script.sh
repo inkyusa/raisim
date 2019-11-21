@@ -11,8 +11,8 @@ then
     exit 1
 fi
 
-#CC=/usr/bin/gcc
-#CXX=/usr/bin/g++
+CC=/usr/bin/gcc
+CXX=/usr/bin/g++
 
 echo "========================================================="    
 echo "                  Checking software versions             "    
