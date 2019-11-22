@@ -111,7 +111,7 @@ then
     source ~/.bashrc
     conda_raisim
     conda install -c conda-forge ruamel.yaml
-if
+fi
 
 if [ $MODE == "build" ]
 then
