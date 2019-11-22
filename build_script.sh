@@ -7,7 +7,7 @@ then
     echo "This is a build script for raisim and performs building  "
     echo "or clenaing procedures depending on a mode you provided. "
     echo "    Usage: source ./build_script.sh <MODE>               "
-    echo "    MODE can be: 'build', 'clean'                        "
+    echo "    MODE can be: 'build', 'clean', or 'build_with_conda  "
     echo "========================================================="
     return
     #exit 1
@@ -70,9 +70,10 @@ sudo apt-get install -y libyaml-cpp-dev cmake libeigen3-dev libgles2-mesa-dev li
 #There are 4 possible modes:
 # 1. 'build' 
 # 2. 'clean'
+# 3. 'build_with_conda'
 
 MODE=$1
-if [ $MODE == "build" ] || [ $MODE == "clean" ] ; then
+if [ $MODE == "build" ] || [ $MODE == "clean" ] || [ $MODE == "build_with_conda" ]; then
     echo "========================================================="
     echo "                  You chose $MODE                        "
     echo "========================================================="
@@ -94,8 +95,43 @@ cd $CUR_DIR
 #============================================
 WORKSPACE=${CUR_DIR}
 LOCAL_BUILD="${WORKSPACE}/raisim_local_build"
+if [ $MODE == "build_with_conda" ]
+then
+    #Try to set up conda environemtns, experimental feature for those who haven't installed conda or tensorflow yet.
+    echo "========================================================="
+    echo "                  Installing miniconda and               "
+    echo "                  setup conda_raisim environment         "
+    echo "========================================================="
+    conda_file_name="Miniconda3-latest-Linux-x86_64.sh"
+    conda_URL="https://repo.anaconda.com/miniconda/${conda_file_name}"
+    cd ~/Downloads
+    #Check if conda install file exist
+    if [ -f "${conda_file_name}" ]
+    then
+        echo "You already have ${conda_file_name}."
+        echo "Skip downloading"
+    else
+        wget $conda_URL -P ~/Downloads
+    fi
 
-if [ $MODE == "build" ]
+    chmod 755 ./${conda_file_name}
+    ./${conda_file_name}
+    source ~/.bashrc
+
+    conda create -n conda_raisim tensorflow=1.15 python
+    echo "alias conda_raisim='conda activate conda_raisim'" >> ~/.bashrc
+    echo "alias conda_off='conda deactivate'" >> ~/.bashrc
+    
+    source ~/.bashrc
+    echo "========================================================="
+    echo "                  Activate conda_raimsim env             "
+    echo "========================================================="
+    conda install -c conda-forge ruamel.yaml
+    conda config --set auto_activate_base false
+    conda activate conda_raisim
+fi
+
+if [ $MODE == "build" ] || [ $MODE == "build_with_conda" ]
 then
     echo "========================================================="
     echo "                  Entering build mode                    "
