@@ -73,12 +73,14 @@ sudo apt-get install -y libyaml-cpp-dev cmake libeigen3-dev libgles2-mesa-dev li
 # 3. 'build_with_conda'
 
 MODE=$1
-if [ $MODE == "build" ] || [ $MODE == "clean" ] || [ $MODE == "build_with_conda" ]
+if [ $MODE == "build" ] || [ $MODE == "clean" ] || [ $MODE == "build_with_conda" ]; then
     echo "========================================================="
     echo "                  You chose $MODE                        "
     echo "========================================================="
 else
+    echo "========================================================="
     echo "The MODE you chose: ${MODE} not currently supported!!!!  "
+    echo "========================================================="
     return
 fi
 #Predefine some necessary variables.
