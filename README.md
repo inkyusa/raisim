@@ -28,9 +28,9 @@ $git submodule update --recursive
 
 # 3. Setup Tensorflow 1.xx and build submodules
 
-After cloning all repos, all you need to do is (w/o source below, you can't update environmental variables such as LD_LIBRARY_PATH)
+After cloning all repos, all you need to do is
 
-## If you are using Ubuntu 18.04 and haven't installed tensorflow 1.xx, then
+### if you are using Ubuntu 18.04 and haven't installed tensorflow 1.xx, then
 
 ```
 $cd raisim
@@ -40,7 +40,7 @@ $source ./build_script.sh build_with_conda
 
 This will install and setup your conda environment and you should be able to `(conda_raisim)` is prefixed to your terminal prompt now (e.g., `(conda_raisim) user_name@hostname:current_path$`).
 
-## else you have Ubuntu 18.04 and tensorflow 1.xx
+### else you have Ubuntu 18.04 and tensorflow 1.xx
 
 ```
 $cd raisim
