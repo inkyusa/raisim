@@ -28,7 +28,8 @@ After cloning all repos, all you need to do is (w/o source below, you can't upda
 
 ```
 $cd raisim
-$source ./build_script.sh build_with_conda
+#source ./setup_conda.sh
+$source ./build_script.sh build
 ```
 This will install and setup your conda environment (i.e., conda_raisim)
 
