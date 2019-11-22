@@ -122,7 +122,7 @@ then
     
 fi
 
-if [ $MODE == "build" ]
+if [ $MODE == "build"  || $MODE == "build_with_conda"]
 then
     echo "========================================================="
     echo "                  Entering build mode                    "
