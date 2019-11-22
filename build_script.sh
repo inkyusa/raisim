@@ -69,16 +69,18 @@ sudo apt-get install -y libyaml-cpp-dev cmake libeigen3-dev libgles2-mesa-dev li
 
 #There are 4 possible modes:
 # 1. 'build' 
-# 2. 'build_upgrade_gcc'
-# 3. 'build_with_conda_upgrade_gcc'
-# 4. 'build_with_conda'
+# 2. 'clean'
+# 3. 'build_with_conda'
 
 MODE=$1
-
-echo "========================================================="
-echo "                  You chose $MODE                        "
-echo "========================================================="
-
+if [ $MODE == "build" ] || [ $MODE == "clean" ] || [ $MODE == "build_with_conda" ]
+    echo "========================================================="
+    echo "                  You chose $MODE                        "
+    echo "========================================================="
+else
+    echo "The MODE you chose: ${MODE} not currently supported!!!!  "
+    return
+fi
 #Predefine some necessary variables.
 
 CUR_DIR=$(pwd)
@@ -122,7 +124,7 @@ then
     
 fi
 
-if [ $MODE == "build"  || $MODE == "build_with_conda"]
+if [ $MODE == "build" ] || [ $MODE == "build_with_conda" ]
 then
     echo "========================================================="
     echo "                  Entering build mode                    "
