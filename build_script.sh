@@ -98,12 +98,12 @@ then
     echo "                  Installing miniconda and               "
     echo "                  setup conda_raisim environment         "
     echo "========================================================="
-
-    conda_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+    conda_file_name="Miniconda3-latest-Linux-x86_64.sh"
+    conda_URL="https://repo.anaconda.com/miniconda/${conda_file_name}"
     cd ~/Download
     wget $conda_URL
-    chmod 755 $conda_URL
-    $conda_URL
+    chmod 755 ${conda_file_name}
+    ${conda_file_name}
     conda config --set auto_activate_base false
     conda create -n conda_raisim tensorflow=1.15 python
     echo "alias conda_raisim='conda activate conda_raisim'" >> ~/.bashrc
