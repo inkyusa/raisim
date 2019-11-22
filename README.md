@@ -1,4 +1,6 @@
-## This repo contains a gitmodule file that links to the following repos as submodules:
+# 1.Introduction
+
+This repo contains a gitmodule file that links to the following repos as submodules:
 
 https://github.com/inkyusa/raisimGymTutorial.git
 
@@ -9,6 +11,8 @@ https://github.com/inkyusa/raisimLib.git
 https://github.com/inkyusa/ogre.git
 
 https://github.com/inkyusa/raisimGym.git
+
+# 2. Cloning submodules
 
 The following procedure should allow not only cloning this repo but cloning all other submodules.
 
@@ -22,14 +26,15 @@ You can update your submodules with
 $git submodule update --recursive
 ```
 
+# 3. Setup Tensorflow 1.xx and build submodules
+
 After cloning all repos, all you need to do is (w/o source below, you can't update environmental variables such as LD_LIBRARY_PATH)
 
-## if you are using Ubuntu 18.04 and haven't installed tensorflow 1.xx, then
+## If you are using Ubuntu 18.04 and haven't installed tensorflow 1.xx, then
 
 ```
 $cd raisim
-#source ./setup_conda.sh
-$source ./build_script.sh build
+$source ./build_script.sh build_with_conda
 ```
 (**This script has been tested on a vanilla Ubuntu system so that recommended even though you already installed tensorflow in your machine.**)
 
@@ -57,6 +62,8 @@ If you want to clean all packages,
 $source ./build_script.sh clean
 ```
 this command will delete all sub-build folders and $LOCAL_BUILD directory.
+
+# 4. Miscellaneous 
 
 ### git versioning tools
 
