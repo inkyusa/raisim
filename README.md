@@ -31,7 +31,9 @@ $cd raisim
 #source ./setup_conda.sh
 $source ./build_script.sh build
 ```
-This will install and setup your conda environment (i.e., conda_raisim)
+(**This script has been tested on a vanilla Ubuntu system so that recommended even though you already installed tensorflow in your machine.**)
+
+This will install and setup your conda environment and you should be able to `(conda_raisim)` is prefixed to your terminal prompt now (e.g., `(conda_raisim) user_name@hostname:current_path$`).
 
 ## else you have Ubuntu 18.04 and tensorflow 1.xx
 
@@ -62,3 +64,9 @@ You can use git termnal commands of course, but it is highly recommended to use 
 
 ### I have a GPU(s) and want to use them for training?
 According to [Tensorflow](https://www.tensorflow.org/install/pip), the version we installed in this tutorial (1.15) is the final 1.xx version can support both CPU and GPU. It should support GPUs seamlessly. Otherwise you can try `tensorflow-gpu=1.14`.
+
+### Troubleshooting
+* Please report any issues if you faced while installing raisim, these would help a lot other people.
+* bug1
+* setup error 2 ... 
+
