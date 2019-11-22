@@ -1,22 +1,40 @@
-#  #!/bin/bash
-
 # Written and tested by Inkyu Sa, inkyu.sa@csiro.au, 2019
-
 
 #check args
 if [ "$#" -ne 1 ]
 then
-    echo "This is a build script for raisim. Raisim has 5 dependencies and this repo submoduled them and tried to manage them in a single repo in order to reduce complexities. This script performs simple building and clenaing procedures."
-    echo "Usage: $0 <MODE build or clean>"
-    exit 1
+    echo "========================================================="
+    echo "This is a build script for raisim and performs building  "
+    echo "or clenaing procedures depending on a mode you provided. "
+    echo "    Usage: source ./build_script.sh <MODE>               "
+    echo "    MODE can be: 'build', 'clean', or 'build_with_conda  "
+    echo "========================================================="
+    return
+    #exit 1
+fi
+
+echo "========================================================="
+echo "                  Checking Ubuntu version                "
+echo "========================================================="
+
+if [[ `lsb_release -rs` == "18.04" ]]
+then
+    echo ">>>>>>>>Ubuntu version check pass"
+else
+    echo "You are currently using Ubuntu" `lsb_release -rs`
+    echo "We only support 18.04 or above at the moment"
+    echo "Please have a look (https://github.com/jhwangbo/raisimHelp)"
+    echo "for higher version gcc and g++ >6.0 installation."
+    return
+    #exit 1
 fi
 
 CC=/usr/bin/gcc
 CXX=/usr/bin/g++
 
-echo "========================================================="    
-echo "                  Checking software versions             "    
-echo "========================================================="    
+echo "========================================================="
+echo "                  Checking gcc and g++ versions             "
+echo "========================================================="
 
 gcc_version="$($CC -dumpversion)"   
 gcc_required_version="6.0.0"    
@@ -25,7 +43,8 @@ if [ "$(printf '%s\n' "$gcc_required_version" "$gcc_version" | sort -V | head -n
 else    
     echo "Less than 6.0.0, please use the right version"    
     echo "You can get more information regarding software installation required by raisim from https://github.com/jhwangbo/raisimHelp"  
-    exit 1  
+    #exit 1
+    return
 fi  
 
 gpp_version="$($CXX -dumpversion)"  
@@ -35,25 +54,35 @@ if [ "$(printf '%s\n' "$gpp_required_version" "$gpp_version" | sort -V | head -n
 else    
     echo "Less than 6.0.0, please use the right version"    
     echo "You can get more information regarding software installation required by raisim from https://github.com/jhwangbo/raisimHelp"  
-    exit 1  
+    #exit 1
+    return
 fi  
 
 
 cmake --version 
 
 echo "=========================================================="   
-echo "  Raisim is using cmake>3.10, please check if you are using correct version.    " 
+echo "  Raisim requires cmake>3.10, please check if you are using correct version.    " 
 echo "=========================================================="   
 
 sudo apt-get install -y libyaml-cpp-dev cmake libeigen3-dev libgles2-mesa-dev libxt-dev libxaw7-dev libsdl2-dev libzzip-dev libfreeimage-dev libfreetype6-dev libpugixml-dev
 
+#There are 4 possible modes:
+# 1. 'build' 
+# 2. 'clean'
+# 3. 'build_with_conda'
 
 MODE=$1
-
-echo "========================================================="
-echo "                  You chose $MODE                        "
-echo "========================================================="
-
+if [ $MODE == "build" ] || [ $MODE == "clean" ] || [ $MODE == "build_with_conda" ]; then
+    echo "========================================================="
+    echo "                  You chose $MODE                        "
+    echo "========================================================="
+else
+    echo "========================================================="
+    echo "The MODE you chose: ${MODE} not currently supported!!!!  "
+    echo "========================================================="
+    return
+fi
 #Predefine some necessary variables.
 
 CUR_DIR=$(pwd)
@@ -66,9 +95,38 @@ cd $CUR_DIR
 #============================================
 WORKSPACE=${CUR_DIR}
 LOCAL_BUILD="${WORKSPACE}/raisim_local_build"
+if [ $MODE == "build_with_conda" ]
+then
+    #Try to set up conda environemtns, experimental feature for those who haven't installed conda or tensorflow yet.
+    echo "========================================================="
+    echo "                  Installing miniconda and               "
+    echo "                  setup conda_raisim environment         "
+    echo "========================================================="
+    conda_file_name="Miniconda3-latest-Linux-x86_64.sh"
+    conda_URL="https://repo.anaconda.com/miniconda/${conda_file_name}"
+    cd ~/Downloads
+    #Check if conda install file exist
+    if [ -f "${conda_file_name}" ]
+    then
+        echo "You already have ${conda_file_name}."
+        echo "Skip downloading"
+    else
+        wget $conda_URL -P ~/Downloads
+    fi
 
+    chmod 755 ./${conda_file_name}
+    ./${conda_file_name}
+    conda config --set auto_activate_base false
+    conda create -n conda_raisim tensorflow=1.15 python
+    echo "alias conda_raisim='conda activate conda_raisim'" >> ~/.bashrc
+    echo "alias conda_off='conda deactivate'" >> ~/.bashrc
+    source ~/.bashrc
+    conda_raisim
+    conda install -c conda-forge ruamel.yaml
+    
+fi
 
-if [ $MODE == "build" ]
+if [ $MODE == "build" ] || [ $MODE == "build_with_conda" ]
 then
     echo "========================================================="
     echo "                  Entering build mode                    "
@@ -80,6 +138,12 @@ then
         echo "Output folder \"${LOCAL_BUILD}\" not found, creating new folder"
         mkdir ${LOCAL_BUILD}
     fi
+
+    cat ~/.bashrc | while read line 
+    do
+        echo $line
+    done
+
 
     #Add LD_LIBRARY_PATH into bashrc for later use.
     #if you run this script n times, this will appear n time in your bashrc
