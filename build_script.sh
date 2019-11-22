@@ -6,7 +6,8 @@ then
     echo "========================================================="
     echo "This is a build script for raisim and performs building  "
     echo "or clenaing procedures depending on a mode you provided. "
-    echo "         Usage: source ./build_script.sh build or clean  "
+    echo "    Usage: source ./build_script.sh <MODE>               "
+    echo "    MODE can be: 'build', 'clean', or 'build_with_conda  "
     echo "========================================================="
     return
     #exit 1
@@ -32,7 +33,7 @@ CC=/usr/bin/gcc
 CXX=/usr/bin/g++
 
 echo "========================================================="
-echo "                  Checking software versions             "
+echo "                  Checking gcc and g++ versions             "
 echo "========================================================="
 
 gcc_version="$($CC -dumpversion)"   
@@ -61,11 +62,16 @@ fi
 cmake --version 
 
 echo "=========================================================="   
-echo "  Raisim is using cmake>3.10, please check if you are using correct version.    " 
+echo "  Raisim requires cmake>3.10, please check if you are using correct version.    " 
 echo "=========================================================="   
 
 sudo apt-get install -y libyaml-cpp-dev cmake libeigen3-dev libgles2-mesa-dev libxt-dev libxaw7-dev libsdl2-dev libzzip-dev libfreeimage-dev libfreetype6-dev libpugixml-dev
 
+#There are 4 possible modes:
+# 1. 'build' 
+# 2. 'build_upgrade_gcc'
+# 3. 'build_with_conda_upgrade_gcc'
+# 4. 'build_with_conda'
 
 MODE=$1
 
@@ -85,11 +91,8 @@ cd $CUR_DIR
 #============================================
 WORKSPACE=${CUR_DIR}
 LOCAL_BUILD="${WORKSPACE}/raisim_local_build"
-
-
-if [ $MODE == "build" ]
+if [ $MODE == "build_with_conda" ]
 then
-
     #Try to set up conda environemtns, experimental feature for those who haven't installed conda or tensorflow yet.
     echo "========================================================="
     echo "                  Installing miniconda and               "
@@ -108,8 +111,10 @@ then
     source ~/.bashrc
     conda_raisim
     conda install -c conda-forge ruamel.yaml
+if
 
-
+if [ $MODE == "build" ]
+then
     echo "========================================================="
     echo "                  Entering build mode                    "
     echo "========================================================="
