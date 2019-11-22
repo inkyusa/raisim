@@ -116,13 +116,16 @@ then
 
     chmod 755 ./${conda_file_name}
     ./${conda_file_name}
-    conda config --set auto_activate_base false
     conda create -n conda_raisim tensorflow=1.15 python
     echo "alias conda_raisim='conda activate conda_raisim'" >> ~/.bashrc
     echo "alias conda_off='conda deactivate'" >> ~/.bashrc
     source ~/.bashrc
     conda_raisim
+    echo "========================================================="
+    echo "                  Activate conda_raimsim env             "
+    echo "========================================================="
     conda install -c conda-forge ruamel.yaml
+    conda config --set auto_activate_base false
     
 fi
 
