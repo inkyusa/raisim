@@ -100,8 +100,16 @@ then
     echo "========================================================="
     conda_file_name="Miniconda3-latest-Linux-x86_64.sh"
     conda_URL="https://repo.anaconda.com/miniconda/${conda_file_name}"
-    cd ~/Download
-    wget $conda_URL
+    cd ~/Downloads
+    #Check if conda install file exist
+    if [ -f "${conda_file_name}" ]
+    then
+        echo "You already have ${conda_file_name}."
+        echo "Skip downloading"
+    else
+        wget $conda_URL -P ~/Downloads
+    fi
+
     chmod 755 ./${conda_file_name}
     ${conda_file_name}
     conda config --set auto_activate_base false
@@ -111,6 +119,7 @@ then
     source ~/.bashrc
     conda_raisim
     conda install -c conda-forge ruamel.yaml
+    
 fi
 
 if [ $MODE == "build" ]
