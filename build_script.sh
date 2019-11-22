@@ -111,7 +111,7 @@ then
     fi
 
     chmod 755 ./${conda_file_name}
-    ${conda_file_name}
+    ./{conda_file_name}
     conda config --set auto_activate_base false
     conda create -n conda_raisim tensorflow=1.15 python
     echo "alias conda_raisim='conda activate conda_raisim'" >> ~/.bashrc
