@@ -102,7 +102,7 @@ then
     conda_URL="https://repo.anaconda.com/miniconda/${conda_file_name}"
     cd ~/Download
     wget $conda_URL
-    chmod 755 ${conda_file_name}
+    chmod 755 ./${conda_file_name}
     ${conda_file_name}
     conda config --set auto_activate_base false
     conda create -n conda_raisim tensorflow=1.15 python
