@@ -163,6 +163,7 @@ then
     echo "========================================================="
     echo "                  Building raisimLib                     "
     echo "========================================================="
+    cd $WORKSPACE
     cd raisimLib/
     mkdir build
     cd build
